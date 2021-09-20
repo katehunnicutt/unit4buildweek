@@ -6,12 +6,12 @@ exports.up = async (knex) => {
       users.string('password', 200).notNullable()
       users.timestamps(false, true)
     })
-    .createTable('potlucks', (potluck) => {
-      potluck.increments('potluck_id')
-      potluck.string('potluck_name', 200).notNullable() //name of potluck
-      potluck.time('potluck_time').notNullable()
-      potluck.date('potluck_date').notNullable()
-      potluck.string('potluck_location').notNullable()
+    .createTable('potlucks', (potlucks) => {
+      potlucks.increments('potluck_id')
+      potlucks.string('potluck_name', 200).notNullable() //name of potluck
+      potlucks.time('potluck_time').notNullable()
+      potlucks.date('potluck_date').notNullable()
+      potlucks.string('potluck_location').notNullable()
     })
     .createTable('food_items', (food_items) => {
       food_items.increments('food_item_id')
@@ -27,7 +27,7 @@ exports.up = async (knex) => {
         .unsigned()
         .notNullable()
         .references('potluck_id')
-        .inTable('potluck')
+        .inTable('potlucks')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
       })
@@ -46,7 +46,7 @@ exports.up = async (knex) => {
         .unsigned()
         .notNullable()
         .references('potluck_id')
-        .inTable('potluck')
+        .inTable('potlucks')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
     })
@@ -56,6 +56,6 @@ exports.down = async (knex) => {
   await knex.schema
   .dropTableIfExists('users_potluck')
   .dropTableIfExists('food_items')
-  .dropTableIfExists('potluck')
+  .dropTableIfExists('potlucks')
   .dropTableIfExists('users')
 }

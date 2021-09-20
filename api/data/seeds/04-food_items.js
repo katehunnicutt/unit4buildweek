@@ -1,5 +1,5 @@
 exports.seed = function(knex, promise){
-  return knex('potlucks').insert([
+  return knex('food_items').insert([
     {
       food_item_name: 'mac and cheese', 
       user_id: 1, 
